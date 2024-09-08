@@ -7,6 +7,7 @@ export default function HomePage() {
   const [image, setImage] = useState<string | null>(null);
   const [reading, setReading] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [question, setQuestion] = useState<string>("");
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -29,7 +30,7 @@ export default function HomePage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ image }),
+        body: JSON.stringify({ image, question }),
       });
 
       if (!response.ok) {
@@ -67,6 +68,23 @@ export default function HomePage() {
             capture="environment"
             onChange={handleImageUpload}
             className="w-full text-sm text-gray-300 file:mr-4 file:rounded-full file:border-0 file:bg-violet-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-violet-700 hover:file:bg-violet-100"
+          />
+        </div>
+
+        <div className="w-full max-w-md">
+          <label
+            htmlFor="question-input"
+            className="mb-2 block text-lg font-medium"
+          >
+            Ask a Question
+          </label>
+          <input
+            type="text"
+            id="question-input"
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+            placeholder="Enter your question here"
+            className="w-full rounded-lg bg-white p-2 text-gray-800"
           />
         </div>
 

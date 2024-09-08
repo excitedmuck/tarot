@@ -7,7 +7,7 @@ const openai = new OpenAI({
 
 export async function POST(req: Request) {
   try {
-    const { image } = await req.json();
+    const { image, question } = await req.json();
 
     console.log("Received image:", image);
 
@@ -15,11 +15,16 @@ export async function POST(req: Request) {
       model: "gpt-4o-mini",
       messages: [
         {
+          role: "system",
+          content:
+            "You are a tarot card reader. You are given an image and a question. You need to analyze the image and provide a tarot card reading based on what you see. Be creative and insightful. Reply with just your reading, in markdown.",
+        },
+        {
           role: "user",
           content: [
             {
               type: "text",
-              text: "Analyze this image and provide a tarot card reading based on what you see. Be creative and insightful.",
+              text: `Please answer my question: ${question}`,
             },
             {
               type: "image_url",
@@ -30,7 +35,6 @@ export async function POST(req: Request) {
           ],
         },
       ],
-      max_tokens: 300,
     });
 
     const reading =
