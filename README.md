@@ -1,29 +1,38 @@
-# Create T3 App
+# Tarot Reading App
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+This is a web application that provides tarot card readings based on uploaded images. It uses the T3 Stack and OpenAI's GPT-4 model for image analysis and reading generation.
 
-## What's next? How do I make an app with this?
+## Images
+## ![alt text](image.png)
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Features
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+- Image upload functionality
+- AI-powered tarot reading generation
+- Responsive design with Tailwind CSS
+
+## Technologies Used
 
 - [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
+- [React](https://reactjs.org)
 - [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+- [OpenAI API](https://openai.com/api/)
+- [TypeScript](https://www.typescriptlang.org/)
 
-## Learn More
+## Getting Started
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Set up your OpenAI API key in the environment variables
+4. Run the development server: `npm run dev`
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+## How It Works
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+1. Users upload an image through the interface
+2. The image is sent to the OpenAI API for analysis
+3. The API returns a tarot reading based on the image content
+4. The reading is displayed to the user
 
-## How do I deploy this?
+## API Reference
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+The main API route for generating tarot readings is located at:

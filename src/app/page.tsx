@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
 
 export default function HomePage() {
   const [image, setImage] = useState<string | null>(null);
@@ -69,28 +70,28 @@ export default function HomePage() {
           />
         </div>
 
-        {image && (
-          <div className="mt-4">
-            <img
-              src={image}
-              alt="Uploaded"
-              className="h-auto max-w-full rounded-lg"
-            />
-            <button
-              onClick={analyzeImage}
-              disabled={isLoading}
-              className="mt-4 rounded bg-violet-500 px-4 py-2 font-bold text-white hover:bg-violet-600"
-            >
-              {isLoading ? "Analyzing..." : "Analyze Image"}
-            </button>
-          </div>
-        )}
-
         {reading && (
           <div className="mt-4 rounded-lg bg-white p-4 text-gray-800">
             <h2 className="mb-2 text-xl font-bold">Tarot reading:</h2>
-            <p>{reading}</p>
+            <ReactMarkdown>{reading}</ReactMarkdown>
           </div>
+        )}
+
+        {image && (
+          <button
+            className="mt-4  group"
+            onClick={analyzeImage}
+            disabled={isLoading}
+          >
+            <div className="mt-4 w-full rounded-t-lg bg-violet-500 px-4 py-2 font-bold text-white group-hover:bg-violet-600 group-hover:font-extrabold">
+              {isLoading ? "Analyzing..." : "Analyze Image"}
+            </div>
+            <img
+              src={image}
+              alt="Uploaded"
+              className="h-auto max-w-full rounded-b-lg"
+            />
+          </button>
         )}
       </div>
     </main>
