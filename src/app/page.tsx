@@ -62,13 +62,13 @@ export default function HomePage() {
     <main className="min-h-screen bg-gradient-to-b from-purple-900 to-indigo-900 text-white">
       <div className="container mx-auto px-4 py-12">
         <h1 className="text-5xl font-bold text-center mb-12 text-purple-200">
-          {mounted ? "Mystical Tarot Reader" : ""}
+          {mounted ? "The Coolest Fantasickest & Emperordope Tarot Oracle in the Multiverse" : ""}
         </h1>
         
         <div className="max-w-2xl mx-auto bg-white/10 backdrop-blur-md rounded-lg shadow-xl p-8">
           <div className="mb-8">
             <label htmlFor="image-upload" className="block text-xl font-medium mb-2 text-purple-200">
-              Upload Your Tarot Spread
+             Upload the Tarot Spread before thee Queen of Mystery
             </label>
             <input
               type="file"
@@ -82,7 +82,7 @@ export default function HomePage() {
 
           <div className="mb-8">
             <label htmlFor="question-input" className="block text-xl font-medium mb-2 text-purple-200">
-              Ask the Cards
+              Present thy Question to the cards
             </label>
             <input
               type="text"
@@ -138,6 +138,9 @@ export default function HomePage() {
 
         </div>
       </div>
+      <footer className="text-center text-purple-200 py-4">
+        Made by PhD in Natural Specific Stupidity, Misearcher in ClosedAI, Mistress of the Multiverse, Hegelian Marsgal
+      </footer>
     </main>
   );
 }
