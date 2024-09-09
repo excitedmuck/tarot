@@ -1,15 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import Image from "next/image";
 
+
 export default function HomePage() {
   const [image, setImage] = useState<string | null>(null);
-  const [reading, setReading] = useState<string | null>(null);
+  const [question, setQuestion] = useState("");
+  const [reading, setReading] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [question, setQuestion] = useState<string>("");
+  const [mounted, setMounted] = useState(false);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -52,72 +59,84 @@ export default function HomePage() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-        <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-
-          Read your <span className="text-[hsl(280,100%,70%)]">Tarot</span>
+    <main className="min-h-screen bg-gradient-to-b from-purple-900 to-indigo-900 text-white">
+      <div className="container mx-auto px-4 py-12">
+        <h1 className="text-5xl font-bold text-center mb-12 text-purple-200">
+          {mounted ? "Mystical Tarot Reader" : ""}
         </h1>
-
-        <div className="w-full max-w-md">
-          <label
-            htmlFor="image-upload"
-            className="mb-2 block text-lg font-medium"
-          >
-            Upload or Take a Photo
-          </label>
-          <input
-            type="file"
-            id="image-upload"
-            accept="image/*"
-            capture="environment"
-            onChange={handleImageUpload}
-            className="w-full text-sm text-gray-300 file:mr-4 file:rounded-full file:border-0 file:bg-violet-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-violet-700 hover:file:bg-violet-100"
-          />
-        </div>
-
-        <div className="w-full max-w-md">
-          <label
-            htmlFor="question-input"
-            className="mb-2 block text-lg font-medium"
-          >
-            Ask a Question
-          </label>
-          <input
-            type="text"
-            id="question-input"
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-            placeholder="Enter your question here"
-            className="w-full rounded-lg bg-white p-2 text-gray-800"
-          />
-        </div>
-
-        {reading && (
-          <div className="mt-4 rounded-lg bg-white p-4 text-gray-800">
-            <h2 className="mb-2 text-xl font-bold">Tarot reading:</h2>
-            <ReactMarkdown>{reading}</ReactMarkdown>
-          </div>
-        )}
-
-        {image && (
-          <button
-            className="mt-4 group"
-            onClick={analyzeImage}
-            disabled={isLoading}
-          >
-            <div className="mt-4 w-full rounded-t-lg bg-violet-500 px-4 py-2 font-bold text-white group-hover:bg-violet-600 group-hover:font-extrabold">
-              {isLoading ? "Analyzing..." : "Analyze Image"}
-            </div>
-            <Image
-              src={image}
-              alt="Uploaded"
-              width={500}
-              height={300}
-              className="h-auto max-w-full rounded-b-lg"
+        
+        <div className="max-w-2xl mx-auto bg-white/10 backdrop-blur-md rounded-lg shadow-xl p-8">
+          <div className="mb-8">
+            <label htmlFor="image-upload" className="block text-xl font-medium mb-2 text-purple-200">
+              Upload Your Tarot Spread
+            </label>
+            <input
+              type="file"
+              id="image-upload"
+              accept="image/*"
+              capture="environment"
+              onChange={handleImageUpload}
+              className="w-full text-sm text-purple-200 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100"
             />
-          </button>
-        )}
+          </div>
+
+          <div className="mb-8">
+            <label htmlFor="question-input" className="block text-xl font-medium mb-2 text-purple-200">
+              Ask the Cards
+            </label>
+            <input
+              type="text"
+              id="question-input"
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+              placeholder="What guidance do you seek?"
+              className="w-full rounded-lg bg-white/20 p-3 text-white placeholder-purple-300"
+            />
+          </div>
+
+          {image && (
+            <div className="mb-8">
+              <button
+                onClick={analyzeImage}
+                disabled={isLoading}
+                className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105"
+              >
+                {isLoading ? "Consulting the cards..." : "Reveal Your Reading"}
+              </button>
+              <Image
+                src={image}
+                alt="Tarot Spread"
+                width={500}
+                height={300}
+                className="mt-4 rounded-lg shadow-md w-full h-auto"
+              />
+            </div>
+          )}
+
+          {reading && (
+                    <div className="mt-8 bg-gray-900 rounded-lg p-6 shadow-lg">
+                      <h2 className="text-2xl font-bold mb-4 text-white">Your Tarot Reading:</h2>
+                      <div className="text-gray-100 space-y-4">
+                        <ReactMarkdown
+                          components={{
+                            p: ({node, ...props}) => <p className="mb-4" {...props} />,
+                            h1: ({node, ...props}) => <h1 className="text-2xl font-bold mb-2 text-white" {...props} />,
+                            h2: ({node, ...props}) => <h2 className="text-xl font-bold mb-2 text-white" {...props} />,
+                            h3: ({node, ...props}) => <h3 className="text-lg font-bold mb-2 text-white" {...props} />,
+                            ul: ({node, ...props}) => <ul className="list-disc list-inside mb-4" {...props} />,
+                            ol: ({node, ...props}) => <ol className="list-decimal list-inside mb-4" {...props} />,
+                            li: ({node, ...props}) => <li className="mb-1" {...props} />,
+                            a: ({node, ...props}) => <a className="text-purple-300 underline" {...props} />,
+                            strong: ({node, ...props}) => <strong className="font-bold" {...props} />,
+                          }}
+                        >
+                          {reading}
+                        </ReactMarkdown>
+                      </div>
+                    </div>
+                  )}
+
+        </div>
       </div>
     </main>
   );
