@@ -139,7 +139,7 @@ export default function HomePage() {
         </div>
       </div>
       <footer className="text-center text-purple-200 py-4">
-        Made by Minor God of the Multiverse
+        Made by Minor God of the Multiverse.
       </footer>
     </main>
   );
