@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
+import Image from "next/image";
 
 export default function HomePage() {
   const [image, setImage] = useState<string | null>(null);
@@ -14,11 +15,13 @@ export default function HomePage() {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         setImage(reader.result as string);
       };
       reader.readAsDataURL(file);
     }
   };
+
 
   const analyzeImage = async () => {
     if (!image) return;
@@ -37,7 +40,7 @@ export default function HomePage() {
         throw new Error("Failed to analyze image");
       }
 
-      const data = await response.json();
+      const data = await response.json() as { reading: string };
       setReading(data.reading);
     } catch (error) {
       console.error("Error analyzing image:", error);
@@ -97,16 +100,18 @@ export default function HomePage() {
 
         {image && (
           <button
-            className="mt-4  group"
+            className="mt-4 group"
             onClick={analyzeImage}
             disabled={isLoading}
           >
             <div className="mt-4 w-full rounded-t-lg bg-violet-500 px-4 py-2 font-bold text-white group-hover:bg-violet-600 group-hover:font-extrabold">
               {isLoading ? "Analyzing..." : "Analyze Image"}
             </div>
-            <img
+            <Image
               src={image}
               alt="Uploaded"
+              width={500}
+              height={300}
               className="h-auto max-w-full rounded-b-lg"
             />
           </button>
