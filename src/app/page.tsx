@@ -139,7 +139,7 @@ export default function HomePage() {
         </div>
       </div>
       <footer className="text-center text-purple-200 py-4">
-        Made by PhD in Natural Specific Stupidity, Misearcher in ClosedAI, Mistress of the Multiverse, Hegelian Marsgal
+        Made by PhD in Natural Specific Stupidity
       </footer>
     </main>
   );
